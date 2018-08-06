@@ -1,14 +1,30 @@
 package com.soliel.hstine;
 
-import com.soliel.hstine.automation.Other.GetCompanies;
-import com.soliel.hstine.automation.Other.RPage;
-import com.soliel.hstine.automation.Other.SearchResults;
-import com.soliel.hstine.automation.Other.Watson;
+import com.soliel.hstine.automation.Other.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToolTests {
+
+    @Test
+    public void secondSearch()
+    {
+        try
+        {
+            List<String> urls = new ArrayList<>();
+            GoogleResults gr = new GoogleResults();
+            gr.conductSearch("intel");
+            String url = gr.returnCurrentURL();
+            urls.add(url);
+            System.out.println("url: " + url);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void firstSearch()
