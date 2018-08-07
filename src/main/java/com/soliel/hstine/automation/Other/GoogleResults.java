@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -64,13 +65,23 @@ public class GoogleResults
     {
         if (stale == true) { throw new StalePageException("RPage is stale!!");}
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("tsf")));
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("tsf")));
 
-        WebElement el = driver.findElement(By.id("tsf"));
+        //WebElement el = driver.findElement(By.id("gs_lc0"));
 
-        wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(el, By.tagName("input")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("input")));
 
-        WebElement input = el.findElement(By.tagName("input"));
+        List<WebElement> inputs = driver.findElements(By.tagName("input"));
+        WebElement input = inputs.get(0);
+
+        for (WebElement i : inputs)
+        {
+            String title = i.getAttribute("title");
+            if ("Search".equals(title))
+            {
+                input = i;
+            }
+        }
 
         wait.until(ExpectedConditions.elementToBeClickable(input));
 
@@ -84,12 +95,13 @@ public class GoogleResults
 
         logo.click();
 
-        Point point = el.getLocation();
+        input.click();
 
-        System.out.println("X: " + point.x);
-        System.out.println("Y: " + point.y);
+        logo = driver.findElement(By.id("hplogo"));
 
+        wait.until(ExpectedConditions.elementToBeClickable(logo));
 
+        logo.click();
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("gbqfbb")));
 
@@ -104,6 +116,8 @@ public class GoogleResults
         System.out.println("type: " + submit.getAttribute("type"));
 
         System.out.println("value: " + submit.getAttribute("value"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(submit));
 
         submit.click();
     }

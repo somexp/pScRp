@@ -1,5 +1,6 @@
 package com.soliel.hstine.automation.Other;
 
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.soliel.hstine.automation.DriverPool;
 import com.soliel.hstine.exceptions.StalePageException;
 import org.openqa.selenium.By;
@@ -45,6 +46,11 @@ public class Watson
         DriverPool.addDriver(driver);
 
         stale = false;
+    }
+
+    public void analyzeOverApi()
+    {
+        //ServiceCall call = service.
     }
 
     public void analyze(String url) throws StalePageException
